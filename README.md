@@ -1,8 +1,8 @@
-=====================================================================================
+============================================================================
 
 Software Development for Conceptual Design and Optimization of Jet Transport Aircraft
 
-=====================================================================================
+============================================================================
 
 It is structured into three phases that allow for design exploration within a single, consistent framework.
 The software conducts aircraft performance and components mass calculation.
