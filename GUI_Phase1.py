@@ -145,7 +145,7 @@ constraints = [
 class OptimizationGUI(tk.Tk):
     def __init__(self):
         super().__init__()
-        self.title('Aircraft Design Optimization - Phase 1')
+        self.title('Aircraft Design Optimization - Module 1')
         self.geometry('1400x900')
         
         self.columnconfigure(0, weight=0, minsize=260)
@@ -201,8 +201,8 @@ class OptimizationGUI(tk.Tk):
         self.download_btn = ttk.Button(top_left, text='Download Plot', command=self.download_plot)
         self.download_btn.pack(pady=5, ipadx=10, ipady=3)
 
-        self.next_phase_btn = ttk.Button(top_left, text='Next Phase ->', command=self.switch_to_phase2)
-        self.next_phase_btn.pack(pady=5, ipadx=10, ipady=3)
+        self.next_module_btn = ttk.Button(top_left, text='Next Module ->', command=self.switch_to_module2)
+        self.next_module_btn.pack(pady=5, ipadx=10, ipady=3)
 
         top_right = tk.LabelFrame(self, text='Initial guess (input)', font=('Arial', 16, 'bold'))
         top_right.grid(row=0, column=1, sticky='nsew', padx=5, pady=5)
@@ -314,9 +314,9 @@ class OptimizationGUI(tk.Tk):
     def download_plot(self):
         try:
             file_path = filedialog.asksaveasfilename(
-                title='Save Phase 1 Plot',
+                title='Save Module 1 Plot',
                 defaultextension='.png',
-                initialfile='phase1_plots.png',
+                initialfile='module1_plots.png',
                 filetypes=[('PNG Image', '*.png'), ('JPEG Image', '*.jpg;*.jpeg'), ('PDF File', '*.pdf'), ('All Files', '*.*')],
             )
             if not file_path:
@@ -326,14 +326,14 @@ class OptimizationGUI(tk.Tk):
         except Exception as e:
             messagebox.showerror('Save Error', f'Could not save plot: {e}')
 
-    def switch_to_phase2(self):
+    def switch_to_module2(self):
         import subprocess
         import os
         try:
-            phase2_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'GUI_Phase2.py')
-            subprocess.Popen([sys.executable, phase2_path])
+            module2_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'GUI_Phase2.py')
+            subprocess.Popen([sys.executable, module2_path])
         except Exception as e:
-            messagebox.showerror('Error', f'Could not launch Phase 2 App: {e}')
+            messagebox.showerror('Error', f'Could not launch Module 2 App: {e}')
 
     def start_optimization(self):
         self.run_btn.config(state=tk.DISABLED)
@@ -452,7 +452,7 @@ class OptimizationGUI(tk.Tk):
             constraints_str = f'{satisfied} / {total_constraints}'
 
             sys.stdout = old_stdout
-            out_file = 'Optimization_Phase1_Results.txt'
+            out_file = 'Optimization_Module1_Results.txt'
             with open(out_file, 'w', encoding='utf-8') as f:
                 f.write(new_stdout.getvalue())
 

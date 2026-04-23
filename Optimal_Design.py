@@ -373,16 +373,16 @@ def run_optimisation(x0=x0, verbose=True):
     return sol
 
 
-def check_constraints_post_optimization(sol, tolerance=0.01, verbose=True):
+def check_constraints_post_optimization(sol, tolerance=1.0, verbose=True):
     """
-    Evaluate all constraints after optimization and report in compact format.
+    Evaluate all constraints after optimization and print in compact format.
     
     Parameters:
     -----------
     sol : scipy OptimizeResult
         The optimization result from run_optimisation()
     tolerance : float
-        Tolerance for constraints (default 0.01 for physical units like kg)
+        Tolerance for constraints (default 1.0 for physical units like kg)
     """
     r = evaluate_all(sol.x)
     

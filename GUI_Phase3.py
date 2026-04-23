@@ -95,13 +95,13 @@ class Tee:
             f.flush()
 
 # -----------------------------------------------------------------------------
-# PHASE 3 GUI INTERFACE
+# module 3 GUI INTERFACE
 # -----------------------------------------------------------------------------
 
-class OptimizationGUI_Phase3(tk.Tk):
+class OptimizationGUI_Module3(tk.Tk):
     def __init__(self):
         super().__init__()
-        self.title('Aircraft Design Optimization - Phase 3 (Carpet Plot Sweep)')
+        self.title('Aircraft Design Optimization - Module 3 (Carpet Plot Sweep)')
         self.geometry('1400x900')
         
         self.columnconfigure(0, weight=0, minsize=350)
@@ -128,7 +128,7 @@ class OptimizationGUI_Phase3(tk.Tk):
         left_panel = tk.Frame(self)
         left_panel.grid(row=0, column=0, sticky='nsew', padx=10, pady=10)
         
-        tk.Label(left_panel, text='Phase 3: Mach & Altitude Sweep', font=('Arial', 14, 'bold')).pack(pady=(10, 10))
+        tk.Label(left_panel, text='Module 3: Mach & Altitude Sweep', font=('Arial', 14, 'bold')).pack(pady=(10, 10))
         
         opt_frame = tk.LabelFrame(left_panel, text='Optimizer Controls', font=('Arial', 12, 'bold'))
         opt_frame.pack(fill='x', pady=5)
@@ -189,9 +189,9 @@ class OptimizationGUI_Phase3(tk.Tk):
     def download_plot(self):
         try:
             file_path = filedialog.asksaveasfilename(
-                title='Save Phase 3 Plot',
+                title='Save Module 3 Plot',
                 defaultextension='.png',
-                initialfile='phase3_carpet_plot.png',
+                initialfile='module3_carpet_plot.png',
                 filetypes=[('PNG Image', '*.png'), ('JPEG Image', '*.jpg;*.jpeg'), ('PDF File', '*.pdf'), ('All Files', '*.*')],
             )
             if not file_path:
@@ -219,7 +219,7 @@ class OptimizationGUI_Phase3(tk.Tk):
     def run_solver(self, x_init_real):
         import time
         try:
-            # Definition of Phase 3 sweeps
+            # Definition of Module 3 sweeps
             mach_list = [0.5, 0.6, 0.7, 0.8, 0.9]
             alt_list = [8000, 9000, 10000, 11000, 12000, 13000]
             
@@ -337,7 +337,7 @@ class OptimizationGUI_Phase3(tk.Tk):
             ext_time = time.time() - self.start_t
             
             sys.stdout = old_stdout
-            with open('Optimization_Phase3_Results.txt', 'w', encoding='utf-8') as f:
+            with open('Optimization_Module3_Results.txt', 'w', encoding='utf-8') as f:
                 f.write(new_stdout.getvalue())
                 
             self.after(0, self._plot_carpet_and_status, mach_list, alt_list, mtow_matrix, feas_matrix, feasible_count, total_pts, ext_time)
@@ -456,10 +456,10 @@ class OptimizationGUI_Phase3(tk.Tk):
             self.ax.legend(handles=right_handles, labels=right_labels, loc='upper right', frameon=False, fontsize=9)
         
         # Status text summary
-        self.status_var.set(f'Sweep Complete!\nFeasible Points: {feasible_count} / {total_pts}\nExecution time: {ext_time:.1f}s\n\nData saved to Optimization_Phase3_Results.txt')
+        self.status_var.set(f'Sweep Complete!\nFeasible Points: {feasible_count} / {total_pts}\nExecution time: {ext_time:.1f}s\n\nData saved to Optimization_Module3_Results.txt')
         self.run_btn.config(state=tk.NORMAL)
         self.canvas.draw()
 
 if __name__ == '__main__':
-    app = OptimizationGUI_Phase3()
+    app = OptimizationGUI_Module3()
     app.mainloop()

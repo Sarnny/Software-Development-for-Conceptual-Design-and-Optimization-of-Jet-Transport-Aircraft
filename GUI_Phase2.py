@@ -88,10 +88,10 @@ constraints = [
     {'type': 'eq',   'fun': con_mass_closure},
 ]
 
-class OptimizationGUI_Phase2(tk.Tk):
+class OptimizationGUI_Module2(tk.Tk):
     def __init__(self):
         super().__init__()
-        self.title('Aircraft Design Optimization - Phase 2 (Mach Sweep)')
+        self.title('Aircraft Design Optimization - Module 2 (Mach Sweep)')
         self.geometry('1400x900')
         
         self.columnconfigure(0, weight=0, minsize=260)
@@ -138,7 +138,7 @@ class OptimizationGUI_Phase2(tk.Tk):
         self.opt_combo = ttk.Combobox(top_left, textvariable=self.optimizer_var, values=['SLSQP', 'trust-constr'], state='readonly', font=('Arial', 16), width=12)
         self.opt_combo.pack(pady=(0, 15), padx=10)
         
-        self.run_btn = ttk.Button(top_left, text='Run Phase 2 (Mach Sweep)', command=self.start_optimization)
+        self.run_btn = ttk.Button(top_left, text='Run Module 2 (Mach Sweep)', command=self.start_optimization)
         self.run_btn.pack(pady=5, ipadx=10, ipady=3)
 
         self.clear_btn = ttk.Button(top_left, text='Clear Results', command=self.clear_results)
@@ -147,10 +147,10 @@ class OptimizationGUI_Phase2(tk.Tk):
         self.download_btn = ttk.Button(top_left, text='Download Plot', command=self.download_plot)
         self.download_btn.pack(pady=5, ipadx=10, ipady=3)
 
-        self.next_phase_btn = ttk.Button(top_left, text='Next Phase ->', command=self.switch_to_phase3)
-        self.next_phase_btn.pack(pady=5, ipadx=10, ipady=3)
+        self.next_module_btn = ttk.Button(top_left, text='Next Module ->', command=self.switch_to_module3)
+        self.next_module_btn.pack(pady=5, ipadx=10, ipady=3)
 
-        # Removed Next Phase button for Phase 2 window.
+        # Removed Next Module button for Module 2 window.
 
         top_right = tk.LabelFrame(self, text='Initial guess (input)', font=('Arial', 16, 'bold'))
         top_right.grid(row=0, column=1, sticky='nsew', padx=5, pady=5)
@@ -251,9 +251,9 @@ class OptimizationGUI_Phase2(tk.Tk):
     def download_plot(self):
         try:
             file_path = filedialog.asksaveasfilename(
-                title='Save Phase 2 Plot',
+                title='Save Module 2 Plot',
                 defaultextension='.png',
-                initialfile='phase2_mach_sweep.png',
+                initialfile='module2_mach_sweep.png',
                 filetypes=[('PNG Image', '*.png'), ('JPEG Image', '*.jpg;*.jpeg'), ('PDF File', '*.pdf'), ('All Files', '*.*')],
             )
             if not file_path:
@@ -263,16 +263,16 @@ class OptimizationGUI_Phase2(tk.Tk):
         except Exception as e:
             messagebox.showerror('Save Error', f'Could not save plot: {e}')
             
-    def switch_to_phase3(self):
+    def switch_to_module3(self):
         import subprocess
         import os
         import sys
         from tkinter import messagebox
         try:
-            phase3_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'GUI_Phase3.py')
-            subprocess.Popen([sys.executable, phase3_path])
+            module3_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'GUI_Phase3.py')
+            subprocess.Popen([sys.executable, module3_path])
         except Exception as e:
-            messagebox.showerror('Error', f'Could not launch Phase 3 App: {e}')
+            messagebox.showerror('Error', f'Could not launch Module 3 App: {e}')
 
     def start_optimization(self):
         self.run_btn.config(state=tk.DISABLED)
@@ -407,10 +407,10 @@ class OptimizationGUI_Phase2(tk.Tk):
                     print(f'             {lbl:>8s} = {val:12.4f}') 
 
             ext_time = time.time() - start_t
-            print(f"\nPhase 2 Completed successfully: {sol.success} in {ext_time:.2f}s")
+            print(f"\nModule 2 Completed successfully: {sol.success} in {ext_time:.2f}s")
             
             sys.stdout = old_stdout
-            out_file = 'Optimization_Phase2_Results.txt'
+            out_file = 'Optimization_Module2_Results.txt'
             with open(out_file, 'w', encoding='utf-8') as f:
                 f.write(new_stdout.getvalue())
 
@@ -444,7 +444,7 @@ class OptimizationGUI_Phase2(tk.Tk):
             if lbl_key in self.mach_mto_vars:
                 self.mach_mto_vars[lbl_key].set(f'{x10_real[9]:.2f}')
 
-        self._plot_phase2(mach_values, results_10d)
+        self._plot_module2(mach_values, results_10d)
         self.run_btn.config(state=tk.NORMAL)
 
     def _handle_error(self, err_msg):
@@ -454,7 +454,7 @@ class OptimizationGUI_Phase2(tk.Tk):
         self.status_vars['constraints'].set('...')
         self.run_btn.config(state=tk.NORMAL)
 
-    def _plot_phase2(self, mach_values, results_10d):
+    def _plot_module2(self, mach_values, results_10d):
         # Configure subplots 3x3 for the 9 variables against Mach number
         self.fig.clf()
         self.axs = self.fig.subplots(3, 3)
@@ -505,5 +505,5 @@ class OptimizationGUI_Phase2(tk.Tk):
         self.canvas.draw()
 
 if __name__ == '__main__':
-    app = OptimizationGUI_Phase2()
+    app = OptimizationGUI_Module2()
     app.mainloop()
